@@ -652,3 +652,15 @@ async function ADD(envadd) {
 	const add = addtext.split(',');
 	return add;
 }
+
+// 必须包含 Docker Registry v2 API 路径处理
+async function handleRequest(event) {
+  const url = new URL(event.request.url);
+  
+  // 关键：保留 /v2/ 路径
+  if (url.pathname.startsWith('/v2/')) {
+    return handleDockerRequest(event);
+  }
+  
+  // ...其他处理
+}
